@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Frontend Mentor | Intro component with sign up form</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="description-container">
+        <h1>
+          Learn to code by <br />
+          watching others
+        </h1>
+        <p>
+          See how experienced developers solve problems in real-time. Watching
+          scripted tutorials is great, but understanding how developers think is
+          invaluable.
+        </p>
+      </section>
+      <section class="form-container">
+        <article>
+          <span>Try it free 7 days</span> then $20/mo. thereafter
+        </article>
+        <form action="https://www.google.com" class="form">
+          <div class="form-control">
+            <input type="text" placeholder="First Name" id="first-name" />
+            <small>error message</small>
+            <img src="images/icon-error.svg" alt="" />
+          </div>
+
+          <div class="form-control">
+            <input type="text" placeholder="Last Name" id="last-name" />
+            <small>error message</small>
+            <img src="images/icon-error.svg" alt="" />
+          </div>
+
+          <div class="form-control">
+            <input
+              type="email"
+              placeholder="Email Address"
+              autocomplete="off "
+              id="email"
+            />
+            <small>error message</small>
+            <img src="images/icon-error.svg" alt="" />
+          </div>
+
+          <div class="form-control">
+            <input type="password" placeholder="Password" id="password" />
+            <small>error message</small>
+            <img src="images/icon-error.svg" alt="" />
+          </div>
+
+          <button type="submit">CLAIM YOUR FREE TRIAL</button>
+          <small
+            >By clicking the button, you are agreeing to our
+            <span>Terms and Services</span></small
+          >
+        </form>
+      </section>
+    </main>
+
+    <!-- <footer>
+      <p class="attribution">
+        Challenge by
+        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+          >Frontend Mentor</a
+        >. Coded by <a href="#">Your Name Here</a>.
+      </p>
+    </footer> -->
+
+    <script>
+      let firstName = document.querySelector("#first-name");
+      let lastName = document.querySelector("#last-name");
+      let email = document.querySelector("#email");
+      let password = document.querySelector("#password");
+
+      let form = document.querySelector(".form");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        checkInputs();
+      });
+
+      function checkInputs() {
+        let firstNameValue = firstName.value.trim();
+        let lastNameValue = lastName.value.trim();
+        let emailValue = email.value.trim();
+        let passwordValue = password.value.trim();
+
+        if (firstNameValue == "") {
+          setErrorFor(firstName, "First Name cannot be blank");
+        } else {
+          setSuccessFor(firstName);
+        }
+
+        if (lastNameValue == "") {
+          setErrorFor(lastName, "Last Name cannot be blank");
+        } else {
+          setSuccessFor(lastName);
+        }
+
+        if (emailValue == "") {
+          setErrorFor(email, "Email cannot be blank");
+        } else if (
+          !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailValue)
+        ) {
+          setErrorFor(email, "That Email is invalid");
+        } else {
+          setSuccessFor(email);
+        }
+
+        if (passwordValue == "") {
+          setErrorFor(password, "Password cannot be blank");
+        } else if (passwordValue.length < 8) {
+          setErrorFor(password, "Password should be atleast 8 characters");
+        } else {
+          setSuccessFor(password);
+        }
+      }
+
+      function setErrorFor(input, message) {
+        let formControl = input.parentElement;
+        let small = formControl.querySelector("small");
+
+        small.innerText = message;
+
+        formControl.classList.add("error");
+        formControl.classList.remove("success");
+      }
+      function setSuccessFor(input) {
+        let formControl = input.parentElement;
+        formControl.classList.add("success");
+        formControl.classList.remove("error");
+      }
+    </script>
+  </body>
+</html>
